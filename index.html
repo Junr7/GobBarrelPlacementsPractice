@@ -38,15 +38,16 @@
 
     <script src="script.js"></script>
     <script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js')
-    .then(() => console.log('Service Worker Registered'))
-    .catch(err => console.log('SW registration failed'));
+// Fix for Firefox home screen apps
+if (window.location.href === 'about:blank' || 
+    !window.location.href.includes('junr7.github.io')) {
+  window.location.href = 'https://junr7.github.io/GobBarrelPlacementsPractice/';
 }
 </script>
 </body>
 
 </html>
+
 
 
 
