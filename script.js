@@ -11,8 +11,8 @@ const DEBUG_SHOW_CONTROLS = true;
 const videos = [
     { src: 'videos/BottomLeft.mp4', correctAnswer: 'Bottom left', timer: 3.78 },
     { src: 'videos/BottomLeft2.mp4', correctAnswer: 'Bottom left', timer: 3.78 },
-    { src: 'videos/Center.mp4', correctAnswer: 'Center', timer: 3.16 },
-    { src: 'videos/Center2.mp4', correctAnswer: 'Center', timer: 3.16 },
+    { src: 'videos/Center.mp4', correctAnswer: 'Center', timer: 3.19 },
+    { src: 'videos/Center2.mp4', correctAnswer: 'Center', timer: 3.19 },
     { src: 'videos/TopRight.mp4', correctAnswer: 'Top right', timer: 3.36 },
     { src: 'videos/TopRight2.mp4', correctAnswer: 'Top right', timer: 3.36 },
     { src: 'videos/BottomMiddle.mp4', correctAnswer: 'Bottom middle', timer: 3.64 },
@@ -25,8 +25,8 @@ const videos = [
     { src: 'videos/MiddleRight2.mp4', correctAnswer: 'Middle right', timer: 3.56 },
     { src: 'videos/TopMiddle.mp4', correctAnswer: 'Top middle', timer: 3.39 },
     { src: 'videos/TopMiddle2.mp4', correctAnswer: 'Top middle', timer: 3.39 },
-    { src: 'videos/BottomRight.mp4', correctAnswer: 'Bottom right', timer: 3.57 },
-    { src: 'videos/BottomRight2.mp4', correctAnswer: 'Bottom right', timer: 3.57 }
+    { src: 'videos/BottomRight.mp4', correctAnswer: 'Bottom right', timer: 3.63 },
+    { src: 'videos/BottomRight2.mp4', correctAnswer: 'Bottom right', timer: 3.63 }
 ];
 
 let timer;
@@ -176,4 +176,5 @@ overlayNext.addEventListener('click', (e) => {
     }
 
     selectRandomVideo();
+
 });
