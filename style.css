@@ -2,7 +2,7 @@
     --video-zoom: 1.0; /* no zoom to see full video */
     --btn-row-desktop: 50px; /* smaller buttons */
     --btn-total-desktop: calc(var(--btn-row-desktop) * 3); /* auto: 3 rows */
-    --btn-row-mobile: 70px; /* reduced from 80px */
+    --btn-row-mobile: 80px;
     --btn-total-mobile: calc(var(--btn-row-mobile) * 3);
 }
 
@@ -197,7 +197,7 @@ body {
     display: none !important;
 }
 
-/* Mobile adjustments — wider container and smaller buttons to fit everything */
+/* Mobile adjustments — ONLY MOBILE UI MODIFIED */
 @media (max-width: 480px) {
     body {
         padding: 0;
@@ -205,7 +205,7 @@ body {
     }
 
     .container {
-        width: 100vw; /* full width to eliminate side gaps */
+        width: 100vw;
         max-width: 100vw;
         border-radius: 0;
         gap: 0;
@@ -213,7 +213,7 @@ body {
 
     .video-container {
         aspect-ratio: 9 / 16;
-        height: calc(100vh - var(--btn-total-mobile));
+        height: 65vh; /* video takes 65% of viewport height */
         max-height: none;
         border-top-left-radius: 0;
         border-top-right-radius: 0;
@@ -224,30 +224,31 @@ body {
     #videoPlayer {
         object-fit: cover;
         object-position: center center;
-        transform: none !important; /* disable desktop zoom on mobile */
+        transform: none !important;
     }
 
     #overlayReplay {
         right: 8px;
-        bottom: 76px; /* above Next button on mobile */
+        bottom: 76px;
         padding: 6px 10px;
         font-size: 13px;
     }
 
     #overlayNext {
         right: 8px;
-        bottom: 43px; /* mobile value unchanged to preserve mobile UI */
+        bottom: 43px;
         padding: 6px 10px;
         font-size: 13px;
     }
 
     #options {
-        grid-auto-rows: var(--btn-row-mobile);
+        grid-auto-rows: 1fr; /* buttons fill remaining space equally */
+        height: 35vh; /* buttons take remaining 35% */
         margin: 0;
     }
 
     .option {
-        font-size: 15px; /* slightly smaller */
-        min-height: var(--btn-row-mobile);
+        font-size: 16px;
+        min-height: 0;
     }
 }
