@@ -1,7 +1,7 @@
 {
   "name": "GoblinQuiz",
   "short_name": "GoblinQuiz",
-  "start_url": "https://junr7.github.io/GobBarrelPlacementsPractice/",
+  "start_url": "https://junr7.github.io/GobBarrelPlacementsPractice/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000"
