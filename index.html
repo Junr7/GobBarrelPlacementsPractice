@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#000000"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Goblin Barrel Quiz</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <!-- quizSection is visible by default -->
+        <div id="quizSection">
+            <div class="video-container">
+                <video id="videoPlayer" preload="metadata" playsinline></video>
+                <div id="result"></div>
+
+                <!-- Overlay Play/Next button -->
+                <button id="overlayNext">Play</button>
+            </div>
+
+            <div id="options">
+                <button class="option"><span>Top left</span></button>
+                <button class="option"><span>Top middle</span></button>
+                <button class="option"><span>Top right</span></button>
+                <button class="option"><span>Middle left</span></button>
+                <button class="option"><span>Center</span></button>
+                <button class="option"><span>Middle right</span></button>
+                <button class="option"><span>Bottom left</span></button>
+                <button class="option"><span>Bottom middle</span></button>
+                <button class="option"><span>Bottom right</span></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js')
+    .then(() => console.log('Service Worker Registered'))
+    .catch(err => console.log('SW registration failed'));
+}
+</script>
+</body>
+</html>

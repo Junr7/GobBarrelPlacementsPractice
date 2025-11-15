@@ -1,0 +1,251 @@
+﻿:root {
+    --video-zoom: 1.0; /* no zoom to see full video */
+    --btn-row-desktop: 50px; /* smaller buttons */
+    --btn-total-desktop: calc(var(--btn-row-desktop) * 3); /* auto: 3 rows */
+    --btn-row-mobile: 80px;
+    --btn-total-mobile: calc(var(--btn-row-mobile) * 3);
+}
+
+/* Page layout */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0; /* removed top padding so video can touch viewport top */
+    display: flex;
+    justify-content: flex-start; /* anchor UI at top */
+    align-items: flex-start; /* content sits at the top on desktop */
+    min-height: 100vh;
+    background-color: #333;
+    overflow: hidden; /* avoid page-level scrolling when layout fits */
+    box-sizing: border-box;
+}
+
+/* container now has zero horizontal padding so the video can touch container edges */
+.container {
+    text-align: center;
+    width: min(340px, 100vw); /* much narrower for vertical layout */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #444;
+    color: white;
+    padding: 0; /* no top or side padding so video reaches edges */
+    box-sizing: border-box;
+    margin: 0 auto;
+    border-radius: 0 0 8px 8px; /* keep bottom rounding, remove top rounding so video hits top */
+    gap: 0; /* remove vertical gap so video and buttons sit flush */
+    max-height: 100vh; /* keep entire UI inside viewport */
+    overflow: hidden;
+}
+
+/* quiz section occupies container width */
+#quizSection {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* video container — full width, constrained height so buttons remain visible */
+.video-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 9 / 16; /* vertical aspect ratio for phone */
+    background: #000;
+    border-top-left-radius: 0; /* removed top radius so video touches top edge */
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 0; /* remove bottom radius so buttons align flush */
+    border-bottom-right-radius: 0;
+    overflow: hidden;
+    margin: 0; /* flush with container top */
+    /* video height equals viewport minus total button area (keeps buttons fully visible) */
+    height: calc(100vh - var(--btn-total-desktop));
+    max-height: none;
+}
+
+/* ensure video fills container; apply a small zoom anchored to the top center */
+#videoPlayer {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* contain to see full video without cropping */
+    object-position: center center;
+    transform-origin: center center;
+    transform: scale(var(--video-zoom));
+    transition: transform 160ms ease;
+    background: black;
+    display: block;
+}
+
+/* overlay Replay button positioning */
+#overlayReplay {
+    position: absolute;
+    right: 12px;
+    bottom: 96px; /* above the Next button */
+    z-index: 9999;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: rgba(85,85,85,0.95);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+
+/* overlay Next button positioning (keeps it visible but not covering native controls) */
+#overlayNext {
+    position: absolute;
+    right: 3px; /* moved further right */
+    bottom: 44px; /* lifted above player's settings on desktop */
+    z-index: 9999;
+    padding: 6px 10px; /* smaller padding */
+    font-size: 12px; /* smaller font */
+    cursor: pointer;
+    background-color: rgba(85,85,85,0.95);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+
+/* 3x3 grid under the video — no gaps, buttons fill cells */
+#options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    max-width: 100%;
+    gap: 0;
+    margin: 0; /* buttons sit immediately under the video */
+    box-sizing: border-box;
+    grid-auto-rows: var(--btn-row-desktop);
+    justify-items: stretch;
+    align-items: stretch;
+}
+
+/* buttons fill cells */
+.option {
+    font-size: 13px; /* smaller font */
+    padding: 0;
+    margin: 0;
+    border: 1px solid #3b3b3b;
+    background-color: #555;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    line-height: 1;
+}
+
+/* seam rules to keep single separators */
+#options .option:not(:nth-child(3n)) {
+    border-right: none;
+}
+
+#options .option:nth-child(-n+3) {
+    border-top: none;
+}
+
+/* result overlay */
+#result {
+    font-size: 20px; /* reduced from 28px */
+    font-weight: bold;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    z-index: 10;
+    text-align: center;
+    pointer-events: none;
+    white-space: nowrap;
+    padding: 4px 8px;
+    background: rgba(0,0,0,0.35);
+    border-radius: 6px;
+    transition: opacity 160ms ease;
+    opacity: 1;
+}
+
+    #result:empty {
+        display: none;
+        opacity: 0;
+    }
+
+    #result:not(:empty) {
+        display: block;
+        opacity: 1;
+    }
+
+.correct {
+    background-color: #00ff00 !important;
+    color: white !important;
+}
+
+.incorrect {
+    background-color: #f44336 !important;
+    color: white !important;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Mobile adjustments — keep unchanged except variables; disable zoom on small screens */
+@media (max-width: 480px) {
+    body {
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .container {
+        border-radius: 0;
+        gap: 6px;
+    }
+
+    .video-container {
+        aspect-ratio: 9 / 16;
+        height: calc(100vh - var(--btn-total-mobile));
+        max-height: none;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    #videoPlayer {
+        object-fit: cover;
+        object-position: center center;
+        transform: none !important; /* disable desktop zoom on mobile */
+    }
+
+    #overlayReplay {
+        right: 8px;
+        bottom: 76px; /* above Next button on mobile */
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+
+    #overlayNext {
+        right: 8px;
+        bottom: 43px; /* mobile value unchanged to preserve mobile UI */
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+
+    #options {
+        grid-auto-rows: var(--btn-row-mobile);
+        margin: 0;
+    }
+
+    .option {
+        font-size: 16px;
+        min-height: var(--btn-row-mobile);
+    }
+}
